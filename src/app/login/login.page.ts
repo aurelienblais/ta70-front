@@ -3,8 +3,8 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
-import {AuthenticationService} from '../authentication-service/authentication-service.module';
-import {AlertService} from '../alert-service/alert-service.module';
+import {AuthenticationService} from '../_services/authentication-service.module';
+import {AlertService} from '../_services/alert-service.module';
 
 @Component({templateUrl: 'login.page.html', providers: [AuthenticationService, AlertService]})
 export class LoginPage implements OnInit {
@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
-            username: ['', Validators.required],
+            username: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]
         });
 
