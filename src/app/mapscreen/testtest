@@ -1,0 +1,29 @@
+[
+{
+  "id": "23",
+  "type": "",
+  "attributes": {
+    "name": "",
+    "lat": 2.0,
+    "lng": 55
+  }
+},
+{
+"id": "23",
+"type": "",
+"attributes" : {
+"name": "",
+"lat": 5.0,
+"lng": 55
+}
+},
+{
+"id": "23",
+"type": "",
+"attributes": {
+"name": "",
+"lat": 8.0,
+"lng": 55
+}
+}
+]
