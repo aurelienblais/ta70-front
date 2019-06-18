@@ -1,5 +1,7 @@
 {
   "name": "TA70-front",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

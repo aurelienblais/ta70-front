@@ -8,10 +8,10 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HttpClient, HttpClientModule, HttpHandler, HTTP_INTERCEPTORS} from '@angular/common/http';
-import { ErrorInterceptor} from './_helpers/error.interceptor';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {AlertService} from './_services/alert-service.module';
-
+import {Geolocation} from '@ionic-native/geolocation/ngx';
 
 
 @NgModule({
@@ -23,8 +23,9 @@ import {AlertService} from './_services/alert-service.module';
         SplashScreen,
         HttpClient,
         AlertService,
+        Geolocation,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
     ],
     bootstrap: [AppComponent]
 })
