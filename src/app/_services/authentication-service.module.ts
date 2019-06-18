@@ -4,8 +4,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 import {User} from '../_models/user';
-import {APIURL} from '../../environments/environment';
-
+import {API_URL} from '../../environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class AuthenticationService {
@@ -17,12 +16,12 @@ export class AuthenticationService {
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    public get currentUserValue(): User {
+    public currentUserValue(): User {
         return this.currentUserSubject.value;
     }
 
     login(username: string, pass: string) {
-        return this.http.post<any>(`${APIURL}/users/sign_in`, {user: {email: username, password: pass}})
+        return this.http.post<any>(`${API_URL}/users/sign_in`, {user: {email: username, password: pass}})
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
@@ -30,13 +29,11 @@ export class AuthenticationService {
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                 }
-
                 return user;
             }));
     }
 
     logout() {
-        // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
     }

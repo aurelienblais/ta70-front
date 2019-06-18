@@ -1,13 +1,21 @@
 <ion-tabs>
     <ion-tab-bar slot="bottom">
         <ion-tab-button tab="mapscreen">
-            <ion-icon name="flash"></ion-icon>
+            <ion-icon name="map"></ion-icon>
             <ion-label>Carte</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="login">
-            <ion-icon name="apps"></ion-icon>
-            <ion-label>Se connecter</ion-label>
+
+        <ion-tab-button tab="profile" *ngIf="currentUser; else logIn">
+            <ion-icon name="person"></ion-icon>
+            <ion-label>Profil</ion-label>
         </ion-tab-button>
+
+        <ng-template #logIn>
+            <ion-tab-button tab="login">
+                <ion-icon name="log-in"></ion-icon>
+                <ion-label>Connexion</ion-label>
+            </ion-tab-button>
+        </ng-template>
     </ion-tab-bar>
 </ion-tabs>

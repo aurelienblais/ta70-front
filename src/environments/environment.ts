@@ -6,7 +6,9 @@ export const environment = {
     production: false
 };
 
-export const APIURL = 'https://ta70.naritaya.org';
+export const API_URL = 'https://ta70.naritaya.org';
+//export const API_URL = 'http://localhost:3000';
+export const POI_TYPE = 'bar';
 
 /*
  * For easier debugging in development mode, you can import the following file

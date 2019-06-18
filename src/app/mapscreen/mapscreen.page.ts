@@ -79,7 +79,7 @@ export class MapscreenPage implements OnInit {
     }
 
     showPoI() {
-        this.PoiProvider.getPois(this.currentPosition.coords.latitude, this.currentPosition.coords.longitude, 'bar')
+        this.PoiProvider.getPois(this.currentPosition.coords.latitude, this.currentPosition.coords.longitude)
             .pipe(first())
             .subscribe(
                 data => {

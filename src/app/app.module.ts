@@ -12,6 +12,7 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/h
 import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {AlertService} from './_services/alert-service.module';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
+import {JwtInterceptor} from './_helpers/jwt.interceptor';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {Geolocation} from '@ionic-native/geolocation/ngx';
         AlertService,
         Geolocation,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
-        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+        {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
     ],
     bootstrap: [AppComponent]
 })

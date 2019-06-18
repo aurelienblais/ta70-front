@@ -1,0 +1,37 @@
+<ion-content class="common-bg">
+  <!-- User settings-->
+  <ion-item-group>
+    <ion-item-divider color="secondary" class="bold">Profil</ion-item-divider>
+    <ion-item>
+      <ion-label position="fixed">
+        <ion-icon name="person"></ion-icon>
+        <span>Nom</span>
+      </ion-label>
+      <ion-input [value]="user.lastname" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">
+        <ion-icon name="person"></ion-icon>
+        <span>Prénom</span>
+      </ion-label>
+      <ion-input [value]="user.firstname" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="fixed">
+        <ion-icon name="mail"></ion-icon>
+        <span>E-mail</span>
+      </ion-label>
+      <ion-input [value]="user.email" readonly></ion-input>
+    </ion-item>
+  </ion-item-group>
+
+  <div class="ion-text-center">
+    <ion-button color="secondary" (click)="logOut()">
+      <ion-icon name="log-out"></ion-icon>
+      <span>Se déconnecter</span>
+    </ion-button>
+  </div>
+
+</ion-content>

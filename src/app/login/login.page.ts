@@ -63,7 +63,7 @@ export class LoginPage implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate(['/mapscreen']);
+                    location.replace('/');
                 },
                 error => {
                     this.alertService.error(error);
