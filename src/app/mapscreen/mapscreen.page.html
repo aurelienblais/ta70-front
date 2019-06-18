@@ -9,4 +9,13 @@
 <ion-content>
   <div id="mapUser" style="width: 100%; height: 100%">
   </div>
+
+  <div *ngIf="currentPOI" class="info-container">
+    <div>
+      <div (click)="closeModal()"  class="ion-text-end">  &times;</div>
+
+      <div  class="ion-text-center">{{ currentPOI.attributes.name }}</div>
+    </div>
+    <img src="assets/icon/beer.png"/>
+  </div>
 </ion-content>

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Map, tileLayer,  marker } from 'leaflet';
+import { Map, tileLayer,  marker, Icon } from 'leaflet';
 import { Geolocation  } from '@ionic-native/geolocation/ngx';
 import { HttpClient } from '@angular/common/http';
+import {PoiProviderService} from '../_services/poi-provider.service';
+import {first} from 'rxjs/operators';
+
 
 
 @Component({
@@ -12,44 +15,85 @@ import { HttpClient } from '@angular/common/http';
 export class MapscreenPage implements OnInit {
 
   map: Map;
+  currentPOI: any;
+  currentPosition: any;
+  poiMarker: Icon;
+  userMarker: Icon;
 
-  constructor(private geolocation: Geolocation /*, http: HttpClient*/) { }
+  constructor(
+      private geolocation: Geolocation ,
+      private http: HttpClient,
+      private PoiProvider: PoiProviderService,
+  ) { }
 
-  ngOnInit() { this.getUserPosition(); }
+  ngOnInit() {
+
+    this.poiMarker = new Icon({
+      iconUrl: '/assets/icon/poiMarker.png',
+      shadowUrl: '',
+
+      iconSize:     [50, 50], // size of the icon
+      shadowSize:   [0, 0], // size of the shadow
+      iconAnchor:   [22, 50], // point of the icon which will correspond to marker's location
+      shadowAnchor: [4, 50],  // the same for the shadow
+      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+
+    this.userMarker = new Icon({
+      iconUrl: '/assets/icon/userMarker.png',
+      shadowUrl: '',
+
+      iconSize:     [50, 50], // size of the icon
+      shadowSize:   [0, 0], // size of the shadow
+      iconAnchor:   [22, 50], // point of the icon which will correspond to marker's location
+      shadowAnchor: [4, 50],  // the same for the shadow
+      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+
+    this.createMap();
+    this.getUserPosition();
+  }
 
   getUserPosition() {
     this.geolocation.getCurrentPosition().then((coords) => {
-      this.showUser(coords);
+      this.currentPosition = coords;
+      this.showUser();
     }).catch((error) => {
       console.log('Error getting location', error);
     });
   }
 
-  showUser(currentPos) {
+  createMap() {
     // In setView add latLng and zoom
-    this.map = new Map('mapUser').setView([currentPos.coords.latitude, currentPos.coords.longitude], 17);
-    tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-      attribution: '© ionic LeafLet',
-    }).addTo(this.map);
-
-    marker([currentPos.coords.latitude, currentPos.coords.longitude]).addTo(this.map)
-        .bindPopup('NOM USER')
-        .openPopup();
+    this.map = new Map('mapUser');
+    tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
+        , { attribution: '© ionic LeafLet', }).addTo(this.map);
   }
 
-  /*showPoI( coords) {
+  showUser() {
+    this.map.setView([this.currentPosition.coords.latitude, this.currentPosition.coords.longitude], 17);
+    marker([this.currentPosition.coords.latitude, this.currentPosition.coords.longitude], {icon: this.userMarker}).addTo(this.map)
+        .bindPopup('Vous êtes ici')
+        .openPopup();
 
-    const poiList = this.http.get('https://localhost:8000?lat=' + coords.coords.latitude + '&lng=' +  coords.coords.longitude);
+    this.showPoI();
+  }
 
+  showPoI() {
+    this.PoiProvider.getPois(this.currentPosition.coords.latitude, this.currentPosition.coords.longitude, 'bar')
+        .pipe(first())
+        .subscribe(
+            data => {
+              for ( const  poi of data) { this.addMarkerOnMap(poi); }
+            },
+            error => { console.log('error'); }
+          );
 
-    for (const poi of JSON.stringify(poiList)) {
-      const poiLat = poi.attributes.lat;
-      const poiLng = poi.attributes.lng;
-      const poiName = poi.attributes.name;
+  }
 
-      marker([poiLat, poiLng]).addTo(this.map)
-          .bindPopup(poiName)
-          .openPopup();
-    }
-  }*/
+  addMarkerOnMap(poi: any) {
+    marker([poi.attributes.lat, poi.attributes.lng], {icon: this.poiMarker}).on('click', (e) => { this.currentPOI = poi; }).addTo(this.map);
+  }
+
+  closeModal() { this.currentPOI = null; }
 }

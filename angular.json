@@ -23,7 +23,7 @@
               {
                 "glob": "**/*",
                 "input": "./node_modules/leaflet/dist/images",
-                "output": "leaflet/"
+                "output": "/"
               },
               {
                 "glob": "**/*",
@@ -36,8 +36,6 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["../node_modules/leaflet/dist/leaflet.css", "styles.css"],
-
             "styles": [
               {
                 "input": "./node_modules/leaflet/dist/leaflet.css"
