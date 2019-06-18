@@ -5,6 +5,7 @@ import {first} from 'rxjs/operators';
 
 import {AuthenticationService} from '../_services/authentication-service.module';
 import {AlertService} from '../_services/alert-service.module';
+import {Subscription} from 'rxjs';
 
 @Component({templateUrl: 'login.page.html', providers: [AuthenticationService, AlertService]})
 export class LoginPage implements OnInit {
@@ -12,6 +13,8 @@ export class LoginPage implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
+    private subscription: Subscription;
+    message: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -32,6 +35,14 @@ export class LoginPage implements OnInit {
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+
+        this.subscription = this.alertService.getMessage().subscribe(message => {
+            this.message = message;
+        });
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     // convenience getter for easy access to form fields
@@ -52,7 +63,7 @@ export class LoginPage implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    this.router.navigate(['/mapscreen']);
                 },
                 error => {
                     this.alertService.error(error);

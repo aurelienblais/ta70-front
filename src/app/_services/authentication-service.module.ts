@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { User} from '../_models/user';
 import {APIURL} from '../../environments/environment';
+import {AlertService} from './alert-service.module';
 
 
 @Injectable({ providedIn: 'root' })
@@ -22,9 +23,11 @@ export class AuthenticationService {
   }
 
   login(username: string, pass: string) {
-    return this.http.post<any>(`${APIURL}/users/sign_in`, {user: {email: username, password: pass}})
-        .pipe(map(user => {
+    return this.http.post<any>(`${APIURL}/users/sign_in`, {user: {email: username, password: pass}}, { observe: 'response' })
+        .pipe(map(response => {
           // login successful if there's a jwt token in the response
+          const user: User = response.body;
+          console.log(response);
           if (user && user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(user));
