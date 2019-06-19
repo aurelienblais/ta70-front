@@ -7,7 +7,7 @@ import {AuthenticationService} from '../_services/authentication-service.module'
 import {AlertService} from '../_services/alert-service.module';
 import {UserService} from '../_services/user-service.module';
 
-@Component({templateUrl: 'register.page.html', providers: [AuthenticationService, AlertService]})
+@Component({templateUrl: 'register.page.html', styleUrls: ['./register.page.scss'], providers: [AuthenticationService, AlertService]})
 export class RegisterPage implements OnInit {
     registerForm: FormGroup;
     loading = false;
@@ -21,7 +21,7 @@ export class RegisterPage implements OnInit {
         private alertService: AlertService
     ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
+        if (this.authenticationService.currentUserValue()) {
             this.router.navigate(['/']);
         }
     }

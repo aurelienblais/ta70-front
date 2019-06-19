@@ -3,12 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-    production: false
+    production: false,
+    API_URL: 'https://ta70.naritaya.org',
+    POI_TYPE: 'bar',
+    CRAWL_NAME: 'Barathon'
 };
-
-export const API_URL = 'https://ta70.naritaya.org';
-//export const API_URL = 'http://localhost:3000';
-export const POI_TYPE = 'bar';
 
 /*
  * For easier debugging in development mode, you can import the following file

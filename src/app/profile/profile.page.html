@@ -1,37 +1,45 @@
-<ion-content class="common-bg">
-  <!-- User settings-->
-  <ion-item-group>
-    <ion-item-divider color="secondary" class="bold">Profil</ion-item-divider>
-    <ion-item>
-      <ion-label position="fixed">
-        <ion-icon name="person"></ion-icon>
-        <span>Nom</span>
-      </ion-label>
-      <ion-input [value]="user.lastname" readonly></ion-input>
-    </ion-item>
+<ion-content class="profile-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3 profile-container">
+                <ion-item-group>
+                    <h2>Mon profil</h2>
+                    <ion-item>
+                        <ion-label position="fixed">
+                            <ion-icon name="person"></ion-icon>
+                            <span>Nom</span>
+                        </ion-label>
+                        <ion-input [value]="user.lastname" readonly></ion-input>
+                    </ion-item>
 
-    <ion-item>
-      <ion-label position="fixed">
-        <ion-icon name="person"></ion-icon>
-        <span>Prénom</span>
-      </ion-label>
-      <ion-input [value]="user.firstname" readonly></ion-input>
-    </ion-item>
+                    <ion-item>
+                        <ion-label position="fixed">
+                            <ion-icon name="person"></ion-icon>
+                            <span>Prénom</span>
+                        </ion-label>
+                        <ion-input [value]="user.firstname" readonly></ion-input>
+                    </ion-item>
 
-    <ion-item>
-      <ion-label position="fixed">
-        <ion-icon name="mail"></ion-icon>
-        <span>E-mail</span>
-      </ion-label>
-      <ion-input [value]="user.email" readonly></ion-input>
-    </ion-item>
-  </ion-item-group>
+                    <ion-item>
+                        <ion-label position="fixed">
+                            <ion-icon name="mail"></ion-icon>
+                            <span>E-mail</span>
+                        </ion-label>
+                        <ion-input [value]="user.email" readonly></ion-input>
+                    </ion-item>
+                </ion-item-group>
 
-  <div class="ion-text-center">
-    <ion-button color="secondary" (click)="logOut()">
-      <ion-icon name="log-out"></ion-icon>
-      <span>Se déconnecter</span>
-    </ion-button>
-  </div>
+                <ion-item-group>
+                    <h2>Mes {{ environment.CRAWL_NAME | lowercase }}s</h2>
+                </ion-item-group>
 
+                <div class="ion-text-center mb-4">
+                    <ion-button color="primary" (click)="logOut()">
+                        <ion-icon name="log-out"></ion-icon>
+                        <span>Se déconnecter</span>
+                    </ion-button>
+                </div>
+            </div>
+        </div>
+    </div>
 </ion-content>

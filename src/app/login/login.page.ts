@@ -7,7 +7,7 @@ import {AuthenticationService} from '../_services/authentication-service.module'
 import {AlertService} from '../_services/alert-service.module';
 import {Subscription} from 'rxjs';
 
-@Component({templateUrl: 'login.page.html', providers: [AuthenticationService, AlertService]})
+@Component({templateUrl: 'login.page.html', styleUrls: ['./login.page.scss'], providers: [AuthenticationService, AlertService]})
 export class LoginPage implements OnInit {
     loginForm: FormGroup;
     loading = false;

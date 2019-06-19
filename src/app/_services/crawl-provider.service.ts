@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {API_URL} from '../../environments/environment';
+import {environment} from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +12,7 @@ export class CrawlProviderService {
     }
 
     getPublicCrawls() {
-        return this.http.get<any>(`${API_URL}/crawls`)
+        return this.http.get<any>(`${environment.API_URL}/crawls`)
             .pipe(map(crawl => crawl.data));
     }
 }

@@ -14,7 +14,6 @@ import {AlertService} from './_services/alert-service.module';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 
-
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
