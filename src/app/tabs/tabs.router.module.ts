@@ -26,6 +26,16 @@ const routes: Routes = [
                     }
                 ]
             },
+
+            {
+                path: 'crawlDetails',
+                children: [
+                    {
+                        path: 'tabs/crawldetails/:id',
+                        loadChildren: '../crawl-details/crawl-details.module#CrawlDetailsPageModule'
+                    }
+                ]
+            },
             {
                 path: 'login',
                 children: [
