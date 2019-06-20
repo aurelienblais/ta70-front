@@ -24,7 +24,7 @@ export class ProfilePage implements OnInit {
 
   logOut() {
     this.userService.delete();
-    this.router.navigate(['/mapscreen']);
+    location.replace('/');
   }
 
 }
