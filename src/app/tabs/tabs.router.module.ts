@@ -16,6 +16,16 @@ const routes: Routes = [
                     }
                 ]
             },
+
+            {
+                path: 'crawls',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../crawls-view/crawls-view.module#CrawlsViewPageModule'
+                    }
+                ]
+            },
             {
                 path: 'login',
                 children: [
