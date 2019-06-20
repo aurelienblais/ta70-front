@@ -44,6 +44,15 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'friends',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../friends/friends.module#FriendsPageModule'
+                    }
+                ]
+            },
+            {
                 path: '',
                 redirectTo: '/tabs/mapscreen',
                 pathMatch: 'full'

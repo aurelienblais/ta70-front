@@ -5,11 +5,18 @@
             <ion-label>Carte</ion-label>
         </ion-tab-button>
 
+        <div *ngIf="currentUser; then loggedMenu else logIn"></div>
+        <ng-template #loggedMenu>
+            <ion-tab-button tab="friends">
+                <ion-icon name="people"></ion-icon>
+                <ion-label>Amis</ion-label>
+            </ion-tab-button>
 
-        <ion-tab-button tab="profile" *ngIf="currentUser; else logIn">
-            <ion-icon name="person"></ion-icon>
-            <ion-label>Profil</ion-label>
-        </ion-tab-button>
+            <ion-tab-button tab="profile">
+                <ion-icon name="person"></ion-icon>
+                <ion-label>Profil</ion-label>
+            </ion-tab-button>
+        </ng-template>
 
         <ng-template #logIn>
             <ion-tab-button tab="login">

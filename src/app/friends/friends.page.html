@@ -1,0 +1,31 @@
+<ion-content class="friends-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3 friends-container">
+        <h2>Mes amis</h2>
+        <ion-button (click)="addFriend()" size="small" class="friends-add-button">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+
+        <ion-item  *ngFor="let friend of friends;">
+          {{ friend.attributes.friend.name }}
+          <ion-button slot="end" color="danger" (click)="confirmFriendDelete(friend.id)">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+        <h2>Demandes d'amis</h2>
+
+        <ion-item  *ngFor="let request of requests;">
+          {{ request.attributes.friend.name }}
+          <ion-button slot="end" color="success" (click)="acceptRequest(request.id)">
+            <ion-icon name="checkmark"></ion-icon>
+          </ion-button>
+          <ion-button slot="end" color="danger" (click)="refuseRequest(request.id)">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </div>
+    </div>
+  </div>
+</ion-content>
