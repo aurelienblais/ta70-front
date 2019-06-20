@@ -12,11 +12,15 @@
                 <ion-label>Amis</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button tab="profile">
-                <ion-icon name="person"></ion-icon>
-                <ion-label>Profil</ion-label>
-            </ion-tab-button>
-        </ng-template>
+        <ion-tab-button tab="crawls">
+            <ion-icon name="beer"></ion-icon>
+            <ion-label>Barathons</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="profile" *ngIf="currentUser; else logIn">
+            <ion-icon name="person"></ion-icon>
+            <ion-label>Profil</ion-label>
+        </ion-tab-button>
 
         <ng-template #logIn>
             <ion-tab-button tab="login">
