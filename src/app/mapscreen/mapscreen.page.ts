@@ -103,4 +103,11 @@ export class MapscreenPage implements OnInit {
     closeModal() {
         this.currentPOI = null;
     }
+
+    centerMap() {
+        this.geolocation.getCurrentPosition().then((coords) => {
+            this.currentPosition = coords;
+            this.map.setView([this.currentPosition.coords.latitude, this.currentPosition.coords.longitude], 17);
+        });
+    }
 }
