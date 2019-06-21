@@ -3,15 +3,13 @@
     </div>
 
     <div *ngIf="currentPOI" class="info-container">
-        <div>
+        <ion-item class="ion-text-center">
             <div (click)="closeModal()" class="ion-text-end"> &times;</div>
-
-            <div class="ion-text-center">
-                {{ currentPOI.attributes.name }}
-                <span (click)="presentPoiDetails(currentPOI.id)">Plus d'informations</span>
-            </div>
-        </div>
-        <img src="assets/icon/beer.png"/>
+            <ion-thumbnail (click)="presentPoiDetails(currentPOI.id)">
+                <img src="assets/icon/beer.png"/>
+            </ion-thumbnail>
+            <ion-label class =""(click)="presentPoiDetails(currentPOI.id)"><h2>{{ currentPOI.attributes.name }}</h2></ion-label>
+        </ion-item>
     </div>
 
     <ion-fab vertical="bottom" horizontal="start" slot="fixed">
