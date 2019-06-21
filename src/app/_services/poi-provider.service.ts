@@ -12,7 +12,7 @@ export class PoiProviderService {
     }
 
     getPois(lat: number, lng: number) {
-        return this.http.get<any>(`${environment.API_URL}/pois?lat=` + lat + '&lng=' + lng + '&family=' + environment.POI_TYPE, )
+        return this.http.get<any>(`${environment.API_URL}/pois?lat=` + lat + '&lng=' + lng + '&family=' + environment.POI_TYPE,)
             .pipe(map(poi => poi.data));
     }
 
