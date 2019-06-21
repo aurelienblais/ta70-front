@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Icon, Map, marker, tileLayer} from 'leaflet';
+import {Icon, Map, marker, tileLayer, featureGroup} from 'leaflet';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {HttpClient} from '@angular/common/http';
 import {PoiProviderService} from '../_services/poi-provider.service';
@@ -18,6 +18,7 @@ export class MapscreenPage implements OnInit {
     currentPosition: any;
     poiMarker: Icon;
     userMarker: Icon;
+    userPosition: marker;
 
     constructor(
         private geolocation: Geolocation,
@@ -54,9 +55,14 @@ export class MapscreenPage implements OnInit {
     }
 
     getUserPosition() {
-        this.geolocation.getCurrentPosition().then((coords) => {
-            this.currentPosition = coords;
+        this.geolocation.getCurrentPosition().then((data) => {
+            this.currentPosition = data.coords;
             this.showUser();
+
+            this.geolocation.watchPosition().subscribe((data) => {
+                this.currentPosition = data.coords;
+                this.setUserPosition();
+            });
         }).catch((error) => {
             console.log('Error getting location', error);
         });
@@ -70,16 +76,18 @@ export class MapscreenPage implements OnInit {
     }
 
     showUser() {
-        this.map.setView([this.currentPosition.coords.latitude, this.currentPosition.coords.longitude], 17);
-        marker([this.currentPosition.coords.latitude, this.currentPosition.coords.longitude], {icon: this.userMarker}).addTo(this.map)
+        this.userPosition = marker([this.currentPosition.latitude, this.currentPosition.longitude], {icon: this.userMarker})
+            .addTo(this.map)
             .bindPopup('Vous êtes ici')
             .openPopup();
+
+        this.centerMap();
 
         this.showPoI();
     }
 
     showPoI() {
-        this.PoiProvider.getPois(this.currentPosition.coords.latitude, this.currentPosition.coords.longitude)
+        this.PoiProvider.getPois(this.currentPosition.latitude, this.currentPosition.longitude)
             .pipe(first())
             .subscribe(
                 data => {
@@ -104,10 +112,12 @@ export class MapscreenPage implements OnInit {
         this.currentPOI = null;
     }
 
+    setUserPosition() {
+        this.userPosition.setLatLng([this.currentPosition.latitude, this.currentPosition.longitude]);
+        this.centerMap();
+    }
+
     centerMap() {
-        this.geolocation.getCurrentPosition().then((coords) => {
-            this.currentPosition = coords;
-            this.map.setView([this.currentPosition.coords.latitude, this.currentPosition.coords.longitude], 17);
-        });
+        this.map.setView([this.currentPosition.latitude, this.currentPosition.longitude], 7);
     }
 }
