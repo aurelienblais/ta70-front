@@ -14,9 +14,10 @@ import {AlertService} from './_services/alert-service.module';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {PoiDetailPage} from './poi-detail/poi-detail.page';
+import {RatingComponent} from './rating/rating.component';
 
 @NgModule({
-    declarations: [AppComponent, PoiDetailPage],
+    declarations: [AppComponent, PoiDetailPage, RatingComponent],
     entryComponents: [PoiDetailPage],
     imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule],
     providers: [

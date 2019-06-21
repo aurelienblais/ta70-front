@@ -1,4 +1,4 @@
-<div *ngIf="poi">
+<div *ngIf="poi" class="full-height">
     <ion-header>
         <ion-toolbar justify-content-center>
             <ion-title>
@@ -9,43 +9,67 @@
         </ion-toolbar>
     </ion-header>
 
-    <ion-grid>
-        <ion-col>
-            <div class="alert alert-primary m-3">
-                <ion-row  justify-content-center>
-                    <span ><ion-icon name="pin"></ion-icon>
+    <ion-content padding class="dynamic-height">
+        <ion-row>
+            <ion-col size="7">
+                <ion-card>
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row justify-content-center>
+                    <span><ion-icon name="pin"></ion-icon>
                         {{ poi.address.split(',')[0] }}</span>
-                </ion-row>
-                <ion-row  justify-content-center>
-                    <span >{{ poi.address.split(',')[1] }}, {{ poi.address.split(',')[2] }}</span>
-                </ion-row>
-                <ion-row  justify-content-center>
-                    <span ><a href="tel:{{poi.phone}}"><ion-icon name="call"></ion-icon>
+                            </ion-row>
+                            <ion-row justify-content-center>
+                                <span>{{ poi.address.split(',')[1] }}, {{ poi.address.split(',')[2] }}</span>
+                            </ion-row>
+                            <ion-row justify-content-center>
+                    <span><a href="tel:{{poi.phone}}"><ion-icon name="call"></ion-icon>
                         {{poi.phone}}</a></span>
-                </ion-row>
-            </div>
-            <ion-row  justify-content-center>
-                <span class="p-3 h4" *ngIf="poi.events[0]">Événements :</span>
-            </ion-row>
-            <ion-row  justify-content-center>
-                <div class="p-4 alert alert-primary m-3" *ngFor="let event of poi.events">
-                    <ion-icon name="people"></ion-icon>
-                    <span> {{event.name}}</span><br/>
-                    <span>{{event.event_date | date:'d MMM y - HH:mm'}}</span><br/>
-                    <span>{{event.description}}</span><br/>
-                </div>
-            </ion-row>
-            <ion-row  justify-content-center>
-                <span class="p-3 h4" *ngIf="poi.menu_items[0]">À la carte :</span>
-            </ion-row>
-            <ion-row  justify-content-center>
-                <div class="p-4 alert alert-warning m-3" *ngFor="let menu_item of poi.menu_items">
-                    <ion-icon name="pricetag"></ion-icon>
-                    <span> {{menu_item.name}}</span><br/>
-                    <span>{{menu_item.price}}€</span><br/>
-                    <span>{{menu_item.description}}</span><br/>
-                </div>
-            </ion-row>
-        </ion-col>
-    </ion-grid>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="5">
+                <ion-card>
+                    <ion-card-content class="ion-text-center">
+                        <p>{{ poi.comment_thread.data.attributes.comments }} commentaire(s)</p>
+                        <app-rating [rating]="poi.comment_thread.data.attributes.note"></app-rating>
+                        <ion-button size="small" color="light">
+                            Commentaire(s)
+                        </ion-button>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+
+        <ion-row justify-content-center>
+            <span class="p-3 h4" *ngIf="poi.events[0]">Événements</span>
+        </ion-row>
+        <ion-row justify-content-center>
+            <ion-card *ngFor="let event of poi.events">
+                <ion-card-header>
+                    <ion-card-title>{{ event.name }}</ion-card-title>
+                    <ion-card-subtitle
+                            class="ion-text-right">{{ event.event_date | date:'d MMM y - HH:mm' }}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>{{ event.description }}</ion-card-content>
+            </ion-card>
+        </ion-row>
+
+        <ion-row justify-content-center>
+            <span class="p-3 h4" *ngIf="poi.menu_items[0]">À la carte</span>
+        </ion-row>
+        <ion-row justify-content-center>
+            <ion-card *ngFor="let menu_item of poi.menu_items">
+                <ion-card-header>
+                    <ion-card-title>{{ menu_item.name }}</ion-card-title>
+                    <ion-card-subtitle *ngIf="menu_item.price"
+                                       class="ion-text-right">{{ menu_item.price.toFixed(2) }} &euro;
+                    </ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>{{ menu_item.description }}</ion-card-content>
+            </ion-card>
+        </ion-row>
+    </ion-content>
 </div>
