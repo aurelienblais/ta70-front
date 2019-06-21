@@ -13,10 +13,11 @@ import {ErrorInterceptor} from './_helpers/error.interceptor';
 import {AlertService} from './_services/alert-service.module';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
+import {PoiDetailPage} from './poi-detail/poi-detail.page';
 
 @NgModule({
-    declarations: [AppComponent],
-    entryComponents: [],
+    declarations: [AppComponent, PoiDetailPage],
+    entryComponents: [PoiDetailPage],
     imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule],
     providers: [
         StatusBar,
@@ -24,6 +25,7 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
         HttpClient,
         AlertService,
         Geolocation,
+        PoiDetailPage,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

@@ -6,7 +6,10 @@
         <div>
             <div (click)="closeModal()" class="ion-text-end"> &times;</div>
 
-            <div class="ion-text-center">{{ currentPOI.attributes.name }}</div>
+            <div class="ion-text-center">
+                {{ currentPOI.attributes.name }}
+                <span (click)="presentPoiDetails(currentPOI.id)">Plus d'informations</span>
+            </div>
         </div>
         <img src="assets/icon/beer.png"/>
     </div>

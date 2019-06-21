@@ -1,15 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {Icon, Map, marker, tileLayer, featureGroup} from 'leaflet';
+import {Icon, Map, marker, tileLayer} from 'leaflet';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {HttpClient} from '@angular/common/http';
 import {PoiProviderService} from '../_services/poi-provider.service';
 import {first} from 'rxjs/operators';
+import {ModalController} from '@ionic/angular';
+import {PoiDetailPage} from '../poi-detail/poi-detail.page';
 
 
 @Component({
     selector: 'app-mapscreen',
     templateUrl: './mapscreen.page.html',
-    styleUrls: ['./mapscreen.page.scss'],
+    styleUrls: ['./mapscreen.page.scss']
 })
 export class MapscreenPage implements OnInit {
 
@@ -24,6 +26,7 @@ export class MapscreenPage implements OnInit {
         private geolocation: Geolocation,
         private http: HttpClient,
         private PoiProvider: PoiProviderService,
+        private modalCtrl: ModalController
     ) {
     }
 
@@ -57,6 +60,7 @@ export class MapscreenPage implements OnInit {
     getUserPosition() {
         this.geolocation.getCurrentPosition().then((data) => {
             this.currentPosition = data.coords;
+            this.centerMap();
             this.showUser();
 
             this.geolocation.watchPosition().subscribe((data) => {
@@ -80,9 +84,6 @@ export class MapscreenPage implements OnInit {
             .addTo(this.map)
             .bindPopup('Vous êtes ici')
             .openPopup();
-
-        this.centerMap();
-
         this.showPoI();
     }
 
@@ -118,6 +119,15 @@ export class MapscreenPage implements OnInit {
     }
 
     centerMap() {
-        this.map.setView([this.currentPosition.latitude, this.currentPosition.longitude], 7);
+        this.map.setView([this.currentPosition.latitude, this.currentPosition.longitude], 10);
+        this.map.invalidateSize();
+    }
+
+    async presentPoiDetails(id) {
+        const modal = await this.modalCtrl.create({
+            component: PoiDetailPage,
+            componentProps: {poi_id: id}
+        });
+        return await modal.present();
     }
 }

@@ -16,4 +16,8 @@ export class PoiProviderService {
             .pipe(map(poi => poi.data));
     }
 
+    getPoi(id) {
+        return this.http.get<any>(`${environment.API_URL}/pois/${id}`);
+    }
+
 }
