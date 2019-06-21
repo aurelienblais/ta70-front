@@ -15,6 +15,10 @@ export class CrawlProviderService {
         return this.http.get<any>(`${environment.API_URL}/crawls`)
             .pipe(map(crawl => crawl.data));
     }
+    getCrawl(id) {
+        return this.http.get<any>(`${environment.API_URL}/crawls/${id}`)
+            .pipe(map(crawl => crawl.data));
+    }
 
     deleteCrawl( id ) {
         return this.http.delete<any>(`${environment.API_URL}/crawls/${id}` );

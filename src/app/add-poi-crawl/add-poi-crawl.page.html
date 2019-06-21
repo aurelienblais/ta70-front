@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Bars</ion-title>
+    <ion-icon slot="end" name="close" (click)="disposeModal()" class="close-icon"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content class="crawl-invitations-page">
+  <div class="container">
+    <ion-list class="itemlist rounded mb-0 rounded-lg">
+
+      <ion-item *ngFor="let poi of poiList">
+        <span class="" horizontal="start">{{ poi.name }}</span>
+        <ion-icon slot="end" name="add"></ion-icon>
+      </ion-item>
+    </ion-list>
+
+
+
+  </div>
+</ion-content>

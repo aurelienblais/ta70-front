@@ -1,9 +1,86 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>crawlDetails</ion-title>
-  </ion-toolbar>
+  <ion-item>
+
+    <ion-icon name="arrow-back" horizontal="start" [routerLink]="['/tabs/crawls']"></ion-icon>
+    <h3  horizontal="center">Votre barathon</h3>
+
+  </ion-item>
 </ion-header>
+<ion-content class="crawl-detail">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3">
+        <div name="crawlInformation">
+          <form (ngSubmit)="onSubmit()" [formGroup]="crawlForm">
+            <ion-item>
+              <ion-label>
+                <ion-icon name="beer"></ion-icon>
+                <span>Nom</span>
+              </ion-label>
+              <ion-input formControlName="crawlname" type="text"></ion-input>
+            </ion-item>
 
-<ion-content>
+            <ion-item>
+              <ion-icon name="calendar"></ion-icon>
+              <ion-label>Date</ion-label>
+              <ion-datetime display-format="DD/MM/YYYY" picker-format="DD MMMM YYYY" formControlName="crawldate"></ion-datetime>
+            </ion-item>
+            <div class="form-group">
+              <button class="btn btn-primary validate-button" > Valider </button>
+            </div>
 
+          </form>
+        </div>
+
+        <h2 class="titre">Invités</h2>
+        <div name="crawlUsers" class="list">
+          <ion-list class=" rounded mb-0 rounded-lg">
+
+            <ion-item-sliding *ngFor="let crawlUser of crawUserslList">
+              <ion-item-options side="start">
+                <ion-item-option color="danger" (click)="delete(crawlUser)"><ion-icon name="close"></ion-icon></ion-item-option>
+              </ion-item-options>
+              <ion-label >
+                <!-- >       {{ crawl.attributes.name }} <-->
+                <ion-item fill="clear" expand="full" >
+                  <span class="" horizontak="start">{{ crawlUser.name }}</span>
+                </ion-item>
+
+              </ion-label>
+            </ion-item-sliding>
+
+          </ion-list>
+
+        </div>
+        <ion-button expand="full" (click)="presentAddFriendCrawl()"> Inviter un amis</ion-button>
+
+
+
+        <h2 class="titre">Bars</h2>
+        <div name="pub" class="list">
+          <ion-list class=" rounded mb-0 rounded-lg">
+
+            <ion-item-sliding *ngFor="let poi of poiCrawlList">
+              <ion-item-options side="start">
+                <ion-item-option color="danger" (click)="delete(poi)"><ion-icon name="close"></ion-icon></ion-item-option>
+              </ion-item-options>
+              <ion-label >
+                <!-- >       {{ crawl.attributes.name }} <-->
+                <ion-item fill="clear" expand="full" >
+                  <span class="" horizontak="start">{{ poi.name }}</span>
+                </ion-item>
+
+              </ion-label>
+            </ion-item-sliding>
+
+          </ion-list>
+
+        </div>
+        <ion-button expand="full" (click)="presentAddPoiCrawl()"> Ajouter un bar</ion-button>
+
+      </div>
+    </div>
+  </div>
 </ion-content>
+
+
