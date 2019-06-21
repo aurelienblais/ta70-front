@@ -2,7 +2,7 @@
     <ion-header>
         <ion-toolbar>
             <ion-title>{{ poi.name }}</ion-title>
-            <ion-icon slot="end" name="close" (click)="disposeModal()" class="close-icon"></ion-icon>
+            <ion-icon (click)="disposeModal()" class="close-icon" name="close" slot="end"></ion-icon>
         </ion-toolbar>
     </ion-header>
 
@@ -10,7 +10,7 @@
         <ion-grid>
             <ion-row>
                 <ion-col size="6">
-                    <span>{{ poi.address.split(',')[0] }}</span><br />
+                    <span>{{ poi.address.split(',')[0] }}</span><br/>
                     <span class="ion-text-right">{{ poi.address.split(',')[1] }}, {{ poi.address.split(',')[2] }}</span>
                 </ion-col>
             </ion-row>

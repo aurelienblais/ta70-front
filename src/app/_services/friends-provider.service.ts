@@ -19,7 +19,7 @@ export class FriendsProviderService {
     }
 
     acceptRequest(id) {
-        return this.http.patch<any>(`${environment.API_URL}/friendships/${id}`, { friendship: { accepted: true } });
+        return this.http.patch<any>(`${environment.API_URL}/friendships/${id}`, {friendship: {accepted: true}});
     }
 
     refuseRequest(id) {
@@ -27,7 +27,7 @@ export class FriendsProviderService {
     }
 
     addFriend(mail) {
-        return this.http.post<any>(`${environment.API_URL}/friendships/`, { friendship: { email: mail } });
+        return this.http.post<any>(`${environment.API_URL}/friendships/`, {friendship: {email: mail}});
     }
 
     deleteFriend(id) {

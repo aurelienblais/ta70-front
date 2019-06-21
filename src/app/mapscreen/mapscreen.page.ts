@@ -21,6 +21,8 @@ export class MapscreenPage implements OnInit {
     poiMarker: Icon;
     userMarker: Icon;
     userPosition: marker;
+    poiMarkers = [];
+    loadCoordinates: any;
 
     constructor(
         private geolocation: Geolocation,
@@ -60,10 +62,26 @@ export class MapscreenPage implements OnInit {
     getUserPosition() {
         this.geolocation.getCurrentPosition().then((data) => {
             this.currentPosition = data.coords;
+            this.map.setView([this.currentPosition.latitude, this.currentPosition.longitude], 15);
             this.centerMap();
             this.showUser();
 
             this.geolocation.watchPosition().subscribe((data) => {
+
+                // Calculate difference between last load coordinates and new coordinates (Haversine)
+                const a = Math.sin((data.coords.latitude - this.loadCoordinates.latitude) * 0.017453292 / 2) *
+                    Math.sin((data.coords.longitude - this.loadCoordinates.longitude) * 0.017453292 / 2) +
+                    Math.sin(this.loadCoordinates.longitude * 0.017453292 / 2) *
+                    Math.sin(data.coords.longitude * this.loadCoordinates.latitude * 0.017453292 / 2) *
+                    Math.cos(this.loadCoordinates.latitude * 0.017453292) * Math.cos(data.coords.latitude * 0.017453292);
+                const dist = 2 * 6371 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+                // If distance is more than 200 meters, get poi again
+                if (dist > 0.2) {
+                    this.poiMarkers.forEach(e => this.map.removeLayer(e));
+                    this.showPoI();
+                }
+
                 this.currentPosition = data.coords;
                 this.setUserPosition();
             });
@@ -92,6 +110,7 @@ export class MapscreenPage implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
+                    this.loadCoordinates = this.currentPosition;
                     for (const poi of data) {
                         this.addMarkerOnMap(poi);
                     }
@@ -104,9 +123,11 @@ export class MapscreenPage implements OnInit {
     }
 
     addMarkerOnMap(poi: any) {
-        marker([poi.attributes.lat, poi.attributes.lng], {icon: this.poiMarker}).on('click', (e) => {
+        let m = new marker([poi.attributes.lat, poi.attributes.lng], {icon: this.poiMarker}).on('click', (e) => {
             this.currentPOI = poi;
-        }).addTo(this.map);
+        });
+        this.poiMarkers.push(m);
+        m.addTo(this.map);
     }
 
     closeModal() {
@@ -119,7 +140,7 @@ export class MapscreenPage implements OnInit {
     }
 
     centerMap() {
-        this.map.setView([this.currentPosition.latitude, this.currentPosition.longitude], 10);
+        this.map.flyTo([this.currentPosition.latitude, this.currentPosition.longitude], 15);
         this.map.invalidateSize();
     }
 
