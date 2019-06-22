@@ -35,7 +35,7 @@
                     <ion-card-content class="ion-text-center">
                         <p>{{ poi.comment_thread.data.attributes.comments }} commentaire(s)</p>
                         <app-rating [rating]="poi.comment_thread.data.attributes.note"></app-rating>
-                        <ion-button size="small" color="light">
+                        <ion-button size="small" color="light" (click)="showComments(poi.comment_thread.data.id)">
                             Commentaire(s)
                         </ion-button>
                     </ion-card-content>

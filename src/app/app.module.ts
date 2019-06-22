@@ -15,11 +15,14 @@ import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {PoiDetailPage} from './poi-detail/poi-detail.page';
 import {RatingComponent} from './rating/rating.component';
+import {CommentThreadComponent} from './comment-thread/comment-thread.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {IonicRatingModule} from 'ionic4-rating/dist';
 
 @NgModule({
-    declarations: [AppComponent, PoiDetailPage, RatingComponent],
-    entryComponents: [PoiDetailPage],
-    imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule],
+    declarations: [AppComponent, PoiDetailPage, RatingComponent, CommentThreadComponent],
+    entryComponents: [PoiDetailPage, CommentThreadComponent],
+    imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, IonicRatingModule],
     providers: [
         StatusBar,
         SplashScreen,
@@ -27,6 +30,7 @@ import {RatingComponent} from './rating/rating.component';
         AlertService,
         Geolocation,
         PoiDetailPage,
+        CommentThreadComponent,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
