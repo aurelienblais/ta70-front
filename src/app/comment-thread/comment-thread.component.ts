@@ -3,6 +3,7 @@ import {ModalController, NavParams} from '@ionic/angular';
 import {CommentThreadProviderService} from '../_services/comment-thread-provider.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
+import {AuthenticationService} from '../_services/authentication-service.module';
 
 @Component({
     selector: 'app-comment-thread',
@@ -15,12 +16,13 @@ export class CommentThreadComponent implements OnInit {
     comments: any;
     commentForm: FormGroup;
     submitted = false;
-    canAddComment = true;
+    canAddComment = false;
 
     constructor(private formBuilder: FormBuilder,
                 private modalCtrl: ModalController,
                 private ctProvider: CommentThreadProviderService,
-                private navParams: NavParams) {
+                private navParams: NavParams,
+                private authService: AuthenticationService) {
     }
 
     get f() {
@@ -30,7 +32,9 @@ export class CommentThreadComponent implements OnInit {
     ngOnInit() {
         this.ctProvider.get(this.navParams.get('ct_id')).subscribe(data => {
             this.comments = data.data.attributes.comments.data;
-            this.canAddComment = data.data.attributes.can_comment;
+            if (this.authService.currentUserValue()) {
+                this.canAddComment = data.data.attributes.can_comment;
+            }
         });
 
         this.commentForm = this.formBuilder.group({
