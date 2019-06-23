@@ -4,12 +4,14 @@ import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {HttpClient} from '@angular/common/http';
 import {PoiProviderService} from '../_services/poi-provider.service';
 import {first} from 'rxjs/operators';
+import {ModalController} from '@ionic/angular';
+import {PoiDetailPage} from '../poi-detail/poi-detail.page';
 
 
 @Component({
     selector: 'app-mapscreen',
     templateUrl: './mapscreen.page.html',
-    styleUrls: ['./mapscreen.page.scss'],
+    styleUrls: ['./mapscreen.page.scss']
 })
 export class MapscreenPage implements OnInit {
 
@@ -18,11 +20,15 @@ export class MapscreenPage implements OnInit {
     currentPosition: any;
     poiMarker: Icon;
     userMarker: Icon;
+    userPosition: marker;
+    poiMarkers = [];
+    loadCoordinates: any;
 
     constructor(
         private geolocation: Geolocation,
         private http: HttpClient,
         private PoiProvider: PoiProviderService,
+        private modalCtrl: ModalController
     ) {
     }
 
@@ -54,9 +60,31 @@ export class MapscreenPage implements OnInit {
     }
 
     getUserPosition() {
-        this.geolocation.getCurrentPosition().then((coords) => {
-            this.currentPosition = coords;
+        this.geolocation.getCurrentPosition().then((data) => {
+            this.currentPosition = data.coords;
+            this.map.setView([this.currentPosition.latitude, this.currentPosition.longitude], 15);
+            this.centerMap();
             this.showUser();
+
+            this.geolocation.watchPosition().subscribe((data) => {
+
+                // Calculate difference between last load coordinates and new coordinates (Haversine)
+                const a = Math.sin((data.coords.latitude - this.loadCoordinates.latitude) * 0.017453292 / 2) *
+                    Math.sin((data.coords.longitude - this.loadCoordinates.longitude) * 0.017453292 / 2) +
+                    Math.sin(this.loadCoordinates.longitude * 0.017453292 / 2) *
+                    Math.sin(data.coords.longitude * this.loadCoordinates.latitude * 0.017453292 / 2) *
+                    Math.cos(this.loadCoordinates.latitude * 0.017453292) * Math.cos(data.coords.latitude * 0.017453292);
+                const dist = 2 * 6371 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+                // If distance is more than 200 meters, get poi again
+                if (dist > 0.2) {
+                    this.poiMarkers.forEach(e => this.map.removeLayer(e));
+                    this.showPoI();
+                }
+
+                this.currentPosition = data.coords;
+                this.setUserPosition();
+            });
         }).catch((error) => {
             console.log('Error getting location', error);
         });
@@ -70,19 +98,19 @@ export class MapscreenPage implements OnInit {
     }
 
     showUser() {
-        this.map.setView([this.currentPosition.coords.latitude, this.currentPosition.coords.longitude], 17);
-        marker([this.currentPosition.coords.latitude, this.currentPosition.coords.longitude], {icon: this.userMarker}).addTo(this.map)
+        this.userPosition = marker([this.currentPosition.latitude, this.currentPosition.longitude], {icon: this.userMarker})
+            .addTo(this.map)
             .bindPopup('Vous êtes ici')
             .openPopup();
-
         this.showPoI();
     }
 
     showPoI() {
-        this.PoiProvider.getPois(this.currentPosition.coords.latitude, this.currentPosition.coords.longitude)
+        this.PoiProvider.getPois(this.currentPosition.latitude, this.currentPosition.longitude)
             .pipe(first())
             .subscribe(
                 data => {
+                    this.loadCoordinates = this.currentPosition;
                     for (const poi of data) {
                         this.addMarkerOnMap(poi);
                     }
@@ -95,12 +123,32 @@ export class MapscreenPage implements OnInit {
     }
 
     addMarkerOnMap(poi: any) {
-        marker([poi.attributes.lat, poi.attributes.lng], {icon: this.poiMarker}).on('click', (e) => {
+        let m = new marker([poi.attributes.lat, poi.attributes.lng], {icon: this.poiMarker}).on('click', (e) => {
             this.currentPOI = poi;
-        }).addTo(this.map);
+        });
+        this.poiMarkers.push(m);
+        m.addTo(this.map);
     }
 
     closeModal() {
         this.currentPOI = null;
+    }
+
+    setUserPosition() {
+        this.userPosition.setLatLng([this.currentPosition.latitude, this.currentPosition.longitude]);
+        this.centerMap();
+    }
+
+    centerMap() {
+        this.map.flyTo([this.currentPosition.latitude, this.currentPosition.longitude], 15);
+        this.map.invalidateSize();
+    }
+
+    async presentPoiDetails(id) {
+        const modal = await this.modalCtrl.create({
+            component: PoiDetailPage,
+            componentProps: {poi_id: id}
+        });
+        return await modal.present();
     }
 }

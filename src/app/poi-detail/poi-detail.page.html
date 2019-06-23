@@ -1,0 +1,75 @@
+<div *ngIf="poi" class="full-height">
+    <ion-header>
+        <ion-toolbar justify-content-center>
+            <ion-title>
+                <ion-icon name="beer"></ion-icon>
+                {{ poi.name }}
+            </ion-title>
+            <ion-icon slot="end" name="close" (click)="disposeModal()" class="close-icon"></ion-icon>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content padding class="dynamic-height">
+        <ion-row>
+            <ion-col size="7">
+                <ion-card>
+                    <ion-card-content>
+                        <ion-grid>
+                            <ion-row justify-content-center>
+                    <span><ion-icon name="pin"></ion-icon>
+                        {{ poi.address.split(',')[0] }}</span>
+                            </ion-row>
+                            <ion-row justify-content-center>
+                                <span>{{ poi.address.split(',')[1] }}, {{ poi.address.split(',')[2] }}</span>
+                            </ion-row>
+                            <ion-row justify-content-center>
+                    <span><a href="tel:{{poi.phone}}"><ion-icon name="call"></ion-icon>
+                        {{poi.phone}}</a></span>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="5">
+                <ion-card>
+                    <ion-card-content class="ion-text-center">
+                        <p>{{ poi.comment_thread.data.attributes.comments }} commentaire(s)</p>
+                        <app-rating [rating]="poi.comment_thread.data.attributes.note"></app-rating>
+                        <ion-button size="small" color="light" (click)="showComments(poi.comment_thread.data.id)">
+                            Commentaire(s)
+                        </ion-button>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+
+        <ion-row justify-content-center>
+            <span class="p-3 h4" *ngIf="poi.events[0]">Événements</span>
+        </ion-row>
+        <ion-row justify-content-center>
+            <ion-card *ngFor="let event of poi.events">
+                <ion-card-header>
+                    <ion-card-title>{{ event.name }}</ion-card-title>
+                    <ion-card-subtitle
+                            class="ion-text-right">{{ event.event_date | date:'d MMM y - HH:mm' }}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>{{ event.description }}</ion-card-content>
+            </ion-card>
+        </ion-row>
+
+        <ion-row justify-content-center>
+            <span class="p-3 h4" *ngIf="poi.menu_items[0]">À la carte</span>
+        </ion-row>
+        <ion-row justify-content-center>
+            <ion-card *ngFor="let menu_item of poi.menu_items">
+                <ion-card-header>
+                    <ion-card-title>{{ menu_item.name }}</ion-card-title>
+                    <ion-card-subtitle *ngIf="menu_item.price"
+                                       class="ion-text-right">{{ menu_item.price.toFixed(2) }} &euro;
+                    </ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>{{ menu_item.description }}</ion-card-content>
+            </ion-card>
+        </ion-row>
+    </ion-content>
+</div>

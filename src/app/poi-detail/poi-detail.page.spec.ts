@@ -1,22 +1,22 @@
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CrawlsViewPage} from './crawls-view.page';
+import {PoiDetailPage} from './poi-detail.page';
 
-describe('CrawlsViewPage', () => {
-    let component: CrawlsViewPage;
-    let fixture: ComponentFixture<CrawlsViewPage>;
+describe('PoiDetailPage', () => {
+    let component: PoiDetailPage;
+    let fixture: ComponentFixture<PoiDetailPage>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [CrawlsViewPage],
+            declarations: [PoiDetailPage],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CrawlsViewPage);
+        fixture = TestBed.createComponent(PoiDetailPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

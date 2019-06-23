@@ -10,7 +10,7 @@ ion-label, ion-button {
     display: inline-block;
     vertical-align: middle;
   }
-  
+
   span {
     margin-left: 5px;
   }
@@ -24,20 +24,8 @@ ion-label, ion-button {
   --min-height: auto;
 }
 
-
-.rightalignimg {
-  width: auto;
-  max-width: 100%;
-  float: right;
-  height: auto;
-  max-height: 100%;
+.close-icon {
+  height: 2rem;
+  width: 2rem;
+  margin-right: 1rem;
 }
-
-
-.custom-icon {
-  font-size: 64px;
-  color : red;
-}
-
-
-

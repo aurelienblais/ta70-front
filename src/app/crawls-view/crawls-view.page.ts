@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {first} from 'rxjs/operators';
 import {CrawlProviderService} from '../_services/crawl-provider.service';
 import { ToastController } from '@ionic/angular';
-
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-crawls-view',
-  templateUrl: './crawls-view.page.html',
-  styleUrls: ['./crawls-view.page.scss'],
+    selector: 'app-crawls-view',
+    templateUrl: './crawls-view.page.html',
+    styleUrls: ['./crawls-view.page.scss'],
 })
 
 export class CrawlsViewPage implements OnInit {

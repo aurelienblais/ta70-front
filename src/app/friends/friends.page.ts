@@ -29,7 +29,7 @@ export class FriendsPage implements OnInit {
                 color: 'success',
                 position: 'top'
             });
-            toast.then( toast => toast.present() );
+            toast.then(toast => toast.present());
         });
     }
 
@@ -41,7 +41,7 @@ export class FriendsPage implements OnInit {
             color: 'danger',
             position: 'top'
         });
-        toast.then( toast => toast.present() );
+        toast.then(toast => toast.present());
     }
 
     async confirmFriendDelete(id) {
@@ -63,7 +63,7 @@ export class FriendsPage implements OnInit {
                             color: 'success',
                             position: 'top'
                         });
-                        toast.then( toast => toast.present() );
+                        toast.then(toast => toast.present());
                     }
                 }
             ]
@@ -97,7 +97,8 @@ export class FriendsPage implements OnInit {
                                     color: 'success',
                                     position: 'top'
                                 });
-                                toast.then( toast => toast.present() );                            },
+                                toast.then(toast => toast.present());
+                            },
                             _ => {
                                 const toast = this.toastCtrl.create({
                                     message: 'Utilisateur introuvable',
@@ -105,7 +106,7 @@ export class FriendsPage implements OnInit {
                                     color: 'danger',
                                     position: 'top'
                                 });
-                                toast.then( toast => toast.present() );
+                                toast.then(toast => toast.present());
                             }
                         );
                     }

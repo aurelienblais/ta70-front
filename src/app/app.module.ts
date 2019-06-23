@@ -16,12 +16,16 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {AddFriendCrawlPage} from './add-friend-crawl/add-friend-crawl.page';
 import {AddPoiCrawlPage} from './add-poi-crawl/add-poi-crawl.page';
 
-
+import {PoiDetailPage} from './poi-detail/poi-detail.page';
+import {RatingComponent} from './rating/rating.component';
+import {CommentThreadComponent} from './comment-thread/comment-thread.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {IonicRatingModule} from 'ionic4-rating/dist';
 
 @NgModule({
-    declarations: [AppComponent, AddFriendCrawlPage, AddPoiCrawlPage],
-    entryComponents: [AddFriendCrawlPage, AddPoiCrawlPage],
-    imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule],
+    declarations: [AppComponent, PoiDetailPage, RatingComponent, CommentThreadComponent, AddFriendCrawlPage, AddPoiCrawlPage],
+    entryComponents: [PoiDetailPage, CommentThreadComponent],
+    imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, IonicRatingModule],
     providers: [
         StatusBar,
         SplashScreen,
@@ -30,6 +34,8 @@ import {AddPoiCrawlPage} from './add-poi-crawl/add-poi-crawl.page';
         Geolocation,
         AddFriendCrawlPage,
         AddPoiCrawlPage,
+        PoiDetailPage,
+        CommentThreadComponent,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

@@ -47,7 +47,8 @@
                     </ion-item>
                     <ion-item *ngIf="submitted && f.password.errors" class="ion-item-invalid-feedback">
                         <div *ngIf="f.password.errors.required">Mot de passe obligatoire.</div>
-                        <div *ngIf="f.password.errors.minlength">Le mot de passe doit comporter 6 caractères minimum.</div>
+                        <div *ngIf="f.password.errors.minlength">Le mot de passe doit comporter 6 caractères minimum.
+                        </div>
                     </ion-item>
 
                     <div class="form-group">
