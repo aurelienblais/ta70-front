@@ -1,29 +1,42 @@
-<ion-content class="crawls-page">
-  <div class="container">
-    <ion-list class="crawlslist rounded mb-0 rounded-lg">
+<ion-content class="crawls-view-page">
+    <div class="container">
+        <ion-row justify-content-center>
+            <ion-col size="12">
+                <ion-list class="rounded mb-0 rounded-lg">
 
-      <ion-item-sliding *ngFor="let crawl of crawlList">
-        <ion-item-options side="start">
-          <ion-item-option (click)="vision(crawl)"><ion-icon name="people"></ion-icon></ion-item-option>
-          <ion-item-option (click)="invitation(crawl)"><ion-icon name="person-add"></ion-icon></ion-item-option>
-          <ion-item-option (click)="duplicate(crawl)"><ion-icon name="copy"></ion-icon></ion-item-option>
-          <ion-item-option color="danger" (click)="delete(crawl)"><ion-icon name="close"></ion-icon></ion-item-option>
-        </ion-item-options>
-        <ion-label >
-          <!-- >       {{ crawl.attributes.name }} <-->
-          <ion-item fill="clear" expand="full"  href="www.google.com" detail>
-            <span class="" horizontak="start">{{ crawl.titre }}</span>
-          </ion-item>
+                    <ion-item-sliding *ngFor="let crawl of crawls">
+                        <ion-item-options side="start">
+                            <ion-item-option (click)="vision(crawl)">
+                                <ion-icon name="people"></ion-icon>
+                            </ion-item-option>
+                            <ion-item-option (click)="invitation(crawl)">
+                                <ion-icon name="person-add"></ion-icon>
+                            </ion-item-option>
+                            <ion-item-option (click)="duplicate(crawl)">
+                                <ion-icon name="copy"></ion-icon>
+                            </ion-item-option>
+                            <ion-item-option color="danger" (click)="delete(crawl)">
+                                <ion-icon name="close"></ion-icon>
+                            </ion-item-option>
+                        </ion-item-options>
+                        <ion-label>
 
-        </ion-label>
-      </ion-item-sliding>
-    </ion-list>
-  <ion-fab vertical="bottom" horizontal="end"  slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add" [routerLink]="['/tabs/crawldetails',0]" ></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+                            <ion-item fill="clear" expand="full" detail (click)="showCrawl(crawl.id)">
+                                <span class="" horizontak="start">{{ crawl.attributes.name }}</span>
+                            </ion-item>
 
+                        </ion-label>
+                    </ion-item-sliding>
+                </ion-list>
+            </ion-col>
+        </ion-row>
 
-  </div>
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+            <ion-fab-button>
+                <ion-icon name="add" (click)="createCrawl()"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+    </div>
 </ion-content>
+
+

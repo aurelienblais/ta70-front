@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {first} from 'rxjs/operators';
-import {CrawlProviderService} from '../_services/crawl-provider.service';
-import { ToastController } from '@ionic/angular';
 import {Component, OnInit} from '@angular/core';
+import {CrawlProviderService} from '../_services/crawl-provider.service';
+import {ToastController} from '@ionic/angular';
 
 @Component({
     selector: 'app-crawls-view',
@@ -11,62 +9,44 @@ import {Component, OnInit} from '@angular/core';
 })
 
 export class CrawlsViewPage implements OnInit {
+    crawls: any;
 
-  crawlList: any[] = [
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      { titre: 'test', test: 'test'}, { titre: 'test2', test: 'test'},
-      ];
-
-  constructor(private crawlProviderService: CrawlProviderService, public toastController: ToastController) { }
-
-  ngOnInit() {
-  }
-
-  showCrawls() {
-      this.crawlProviderService.getPublicCrawls()
-          .pipe(first())
-          .subscribe(
-              data => {
-                for ( const  crawl of data) { this.addToList(crawl); }
-              },
-              error => { console.log(error); }
-          );
+    constructor(private crawlProviderService: CrawlProviderService, public toastController: ToastController) {
     }
 
-  addToList( crawl) {
-    this.crawlList.push(crawl);
-  }
+    ngOnInit() {
+        this.loadCrawls();
+    }
+
+    loadCrawls() {
+        this.crawlProviderService.getCrawls().subscribe(data => {
+            this.crawls = data.data;
+            console.log(this.crawls);
+        });
+    }
+
+    createCrawl() {
+    }
+
+    showCrawl(id) {
+    }
+
+    addToList(crawl) {
+        this.crawls.push(crawl);
+    }
+
     vision(item) {
         this.visionToast();
     }
 
-    duplicate( crawl) {
+    duplicate(crawl) {
         this.duplicateToast();
     }
 
-    delete( crawl){
-      this.deleteToast();
+    delete(crawl) {
+        this.deleteToast();
     }
+
     async visionToast() {
         this.showToast('Barathon passé en privé/publique');
     }
@@ -77,10 +57,10 @@ export class CrawlsViewPage implements OnInit {
 
 
     async deleteToast() {
-        this.showToast('Barathon supprimé' );
+        this.showToast('Barathon supprimé');
     }
 
-    async showToast( message ) {
+    async showToast(message) {
 
         const toast = await this.toastController.create({
                 message,
