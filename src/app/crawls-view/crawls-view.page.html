@@ -5,26 +5,17 @@
                 <ion-list class="rounded mb-0 rounded-lg">
 
                     <ion-item-sliding *ngFor="let crawl of crawls">
-                        <ion-item-options side="start">
-                            <ion-item-option (click)="vision(crawl)">
-                                <ion-icon name="people"></ion-icon>
-                            </ion-item-option>
-                            <ion-item-option (click)="invitation(crawl)">
-                                <ion-icon name="person-add"></ion-icon>
-                            </ion-item-option>
-                            <ion-item-option (click)="duplicate(crawl)">
-                                <ion-icon name="copy"></ion-icon>
-                            </ion-item-option>
-                            <ion-item-option color="danger" (click)="delete(crawl)">
-                                <ion-icon name="close"></ion-icon>
-                            </ion-item-option>
-                        </ion-item-options>
                         <ion-label>
+                            <ion-item>
+                                <span class="" horizontal="start">{{ crawl.attributes.name }}</span>
+                                <ion-button slot="end" (click)="showCrawlMap(crawl.id)">
+                                    <ion-icon name="eye"></ion-icon>
+                                </ion-button>
 
-                            <ion-item fill="clear" expand="full" detail (click)="showCrawl(crawl.id)">
-                                <span class="" horizontak="start">{{ crawl.attributes.name }}</span>
+                                <ion-button slot="end" (click)="showCrawl(crawl.id)">
+                                    <ion-icon name="cog"></ion-icon>
+                                </ion-button>
                             </ion-item>
-
                         </ion-label>
                     </ion-item-sliding>
                 </ion-list>

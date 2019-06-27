@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CrawlProviderService} from '../_services/crawl-provider.service';
 import {ModalController, ToastController} from '@ionic/angular';
 import {CrawlDetailsPage} from '../crawl-details/crawl-details.page';
+import {CrawlMapComponent} from '../crawl-map/crawl-map.component';
 
 @Component({
     selector: 'app-crawls-view',
@@ -89,7 +90,15 @@ export class CrawlsViewPage implements OnInit {
             component: CrawlDetailsPage,
             componentProps: {crawl_id: id}
         });
-        modal.onDidDismiss().then( _ => this.loadCrawls() );
+        modal.onDidDismiss().then(_ => this.loadCrawls());
+        return await modal.present();
+    }
+
+    async showCrawlMap(id) {
+        const modal = await this.modalCtrl.create({
+            component: CrawlMapComponent,
+            componentProps: {crawl_id: id}
+        });
         return await modal.present();
     }
 

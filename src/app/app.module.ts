@@ -22,10 +22,11 @@ import {CommentThreadComponent} from './comment-thread/comment-thread.component'
 import {ReactiveFormsModule} from '@angular/forms';
 import {IonicRatingModule} from 'ionic4-rating/dist';
 import {CrawlDetailsPage} from './crawl-details/crawl-details.page';
+import {CrawlMapComponent} from './crawl-map/crawl-map.component';
 
 @NgModule({
-    declarations: [AppComponent, PoiDetailPage, RatingComponent, CommentThreadComponent, AddFriendCrawlPage, AddPoiCrawlPage, CrawlDetailsPage],
-    entryComponents: [PoiDetailPage, CommentThreadComponent, CrawlDetailsPage, AddPoiCrawlPage, AddFriendCrawlPage],
+    declarations: [AppComponent, PoiDetailPage, RatingComponent, CommentThreadComponent, CrawlMapComponent, AddFriendCrawlPage, AddPoiCrawlPage, CrawlDetailsPage],
+    entryComponents: [PoiDetailPage, CommentThreadComponent, CrawlMapComponent, CrawlDetailsPage, AddPoiCrawlPage, AddFriendCrawlPage],
     imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, IonicRatingModule],
     providers: [
         StatusBar,
@@ -37,6 +38,7 @@ import {CrawlDetailsPage} from './crawl-details/crawl-details.page';
         AddPoiCrawlPage,
         PoiDetailPage,
         CommentThreadComponent,
+        CrawlMapComponent,
         CrawlDetailsPage,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
