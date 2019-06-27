@@ -21,10 +21,11 @@ import {RatingComponent} from './rating/rating.component';
 import {CommentThreadComponent} from './comment-thread/comment-thread.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {IonicRatingModule} from 'ionic4-rating/dist';
+import {CrawlDetailsPage} from './crawl-details/crawl-details.page';
 
 @NgModule({
-    declarations: [AppComponent, PoiDetailPage, RatingComponent, CommentThreadComponent, AddFriendCrawlPage, AddPoiCrawlPage],
-    entryComponents: [PoiDetailPage, CommentThreadComponent],
+    declarations: [AppComponent, PoiDetailPage, RatingComponent, CommentThreadComponent, AddFriendCrawlPage, AddPoiCrawlPage, CrawlDetailsPage],
+    entryComponents: [PoiDetailPage, CommentThreadComponent, CrawlDetailsPage, AddPoiCrawlPage, AddFriendCrawlPage],
     imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, IonicRatingModule],
     providers: [
         StatusBar,
@@ -36,6 +37,7 @@ import {IonicRatingModule} from 'ionic4-rating/dist';
         AddPoiCrawlPage,
         PoiDetailPage,
         CommentThreadComponent,
+        CrawlDetailsPage,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}

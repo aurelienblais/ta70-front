@@ -19,7 +19,7 @@ export class AddFriendCrawlPage implements OnInit {
   ) { }
 
   ngOnInit() {
-   // this.friendsProviderService.getFriends().pipe(first()).subscribe( data => { this.friendList = data; console.log(data); } );
+    this.friendsProviderService.getFriends().pipe(first()).subscribe( data => { this.friendList = data; console.log(data); } );
   }
 
   disposeModal() {

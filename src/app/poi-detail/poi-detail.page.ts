@@ -17,6 +17,7 @@ export class PoiDetailPage implements OnInit {
 
     ngOnInit() {
         this.loadPoi();
+        console.log(this.poi);
     }
 
     loadPoi() {
