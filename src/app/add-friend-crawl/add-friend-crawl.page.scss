@@ -1,5 +1,12 @@
-.itemlist
-{
-  max-height: 100%;
-  overflow-y: scroll;
+.full-height {
+  height: 100%;
+
+  ion-content {
+    --background: url('/assets/images/background.png') no-repeat center center;
+    background-size: cover;
+  }
+
+  ion-card {
+    background: #fff;
+  }
 }

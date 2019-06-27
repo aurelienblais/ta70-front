@@ -1,23 +1,37 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Invitations</ion-title>
-    <ion-icon slot="end" name="close" (click)="disposeModal()" class="close-icon"></ion-icon>
-  </ion-toolbar>
-</ion-header>
+<div class="full-height">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Invitations</ion-title>
+            <ion-icon slot="end" name="arrow-back" (click)="disposeModal()" class="close-icon"></ion-icon>
+        </ion-toolbar>
+    </ion-header>
 
-
-
-<ion-content class="crawl-invitations-page">
-  <div class="container">
-    <ion-list class="itemlist rounded mb-0 rounded-lg">
-
-      <ion-item *ngFor="let friend of friendList">
-        <span class="" horizontal="start">{{ friend.name }}</span>
-        <ion-icon slot="end" name="add"></ion-icon>
-      </ion-item>
-    </ion-list>
-
-
-
-  </div>
-</ion-content>
+    <ion-content class="crawl-invitations-page">
+        <ion-row>
+            <ion-col size="12">
+                <ion-card>
+                    <ion-card-content *ngIf="friendList">
+                        <div *ngIf="friendList.length > 0; then friends else noFriends"></div>
+                        <ng-template #friends>
+                            <ion-list class="itemlist rounded mb-0 rounded-lg">
+                                <ion-item *ngFor="let friend of friendList">
+                                    <span class="" horizontal="start">{{ friend.attributes.friend.name }}</span>
+                                    <ion-icon slot="end" name="add"
+                                              (click)="invite(friend.attributes.friend.id)"></ion-icon>
+                                </ion-item>
+                            </ion-list>
+                        </ng-template>
+                        <ng-template #noFriends>
+                            <p class="ion-text-center">
+                                Votre liste d'ami est vide :'(
+                            </p>
+                            <p class="ion-text-center">
+                                Ajoutez-en depuis l'onglet "Amis"
+                            </p>
+                        </ng-template>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-content>
+</div>

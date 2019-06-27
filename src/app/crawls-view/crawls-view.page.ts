@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CrawlProviderService} from '../_services/crawl-provider.service';
-import {ToastController} from '@ionic/angular';
-import {ModalController} from '@ionic/angular';
+import {ModalController, ToastController} from '@ionic/angular';
 import {CrawlDetailsPage} from '../crawl-details/crawl-details.page';
 
 @Component({
@@ -17,7 +16,6 @@ export class CrawlsViewPage implements OnInit {
         private crawlProviderService: CrawlProviderService,
         public toastController: ToastController,
         private modalCtrl: ModalController
-
     ) {
     }
 
@@ -26,10 +24,7 @@ export class CrawlsViewPage implements OnInit {
     }
 
     loadCrawls() {
-        this.crawlProviderService.getCrawls().subscribe(data => {
-            this.crawls = data.data;
-            console.log(this.crawls);
-        });
+        this.crawlProviderService.getCrawls().subscribe(data => this.crawls = data.data);
     }
 
     createCrawl() {
@@ -94,6 +89,7 @@ export class CrawlsViewPage implements OnInit {
             component: CrawlDetailsPage,
             componentProps: {crawl_id: id}
         });
+        modal.onDidDismiss().then( _ => this.loadCrawls() );
         return await modal.present();
     }
 

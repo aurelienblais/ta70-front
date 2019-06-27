@@ -18,18 +18,26 @@ export class CrawlProviderService {
         return this.http.get<any>(`${environment.API_URL}/crawls/${id}`);
     }
 
-    deleteCrawl(id) {
-        return this.http.delete<any>(`${environment.API_URL}/crawls/${id}`);
-    }
-
-    createCrawl(crawl) {
+    createCrawl(name, event_date, description) {
         return this.http.post<any>(`${environment.API_URL}/crawls`,
             {
                 crawl:
                     {
-                        name: crawl.name,
-                        description: crawl.description,
-                        event_date: crawl.event_date
+                        name: name,
+                        description: description,
+                        event_date: event_date
+                    }
+            });
+    }
+
+    updateCrawl(id, name, event_date, description) {
+        return this.http.patch<any>(`${environment.API_URL}/crawls/${id}`,
+            {
+                crawl:
+                    {
+                        name: name,
+                        description: description,
+                        event_date: event_date
                     }
             });
     }
