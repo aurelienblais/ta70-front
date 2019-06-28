@@ -9,11 +9,6 @@ ion-row {
     height: calc(100% - 56px);
   }
 
-  ion-content {
-    --background: url('/assets/images/background.png') no-repeat center center;
-    background-size: cover;
-  }
-
   .bordered {
     border: 1px solid lightgray !important;
   }

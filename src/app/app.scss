@@ -5,6 +5,17 @@
 // file can hold Sass mixins, functions, and placeholder classes to be imported
 // and used throughout the application.
 
+
+body {
+  background: url('/assets/images/background.png') no-repeat center center;
+  background-size: cover;
+  background-attachment: scroll;
+}
+
+ion-content {
+  --background: rgba(0, 0, 0, 0);
+}
+
 ion-label, ion-button {
   ion-icon, span {
     display: inline-block;

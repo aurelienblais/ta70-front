@@ -63,7 +63,9 @@ export class MapscreenPage implements OnInit {
         this.geolocation.getCurrentPosition().then((data) => {
             this.currentPosition = data.coords;
             this.map.setView([this.currentPosition.latitude, this.currentPosition.longitude], 15);
-            this.centerMap();
+            setTimeout(() => {
+                this.centerMap();
+            }, 1000);
             this.showUser();
 
             this.geolocation.watchPosition().subscribe((data) => {

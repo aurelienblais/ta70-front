@@ -2,23 +2,38 @@
     <div class="container">
         <ion-row justify-content-center>
             <ion-col size="12">
-                <ion-list class="rounded mb-0 rounded-lg">
+                <div *ngIf="crawls; then showCrawls else noCrawl"></div>
+                <ng-template #showCrawls>
+                    <ion-list class="rounded mb-0 rounded-lg">
 
-                    <ion-item-sliding *ngFor="let crawl of crawls">
-                        <ion-label>
-                            <ion-item>
-                                <span class="" horizontal="start">{{ crawl.attributes.name }}</span>
-                                <ion-button slot="end" (click)="showCrawlMap(crawl.id)">
-                                    <ion-icon name="eye"></ion-icon>
-                                </ion-button>
+                        <ion-item-sliding *ngFor="let crawl of crawls">
+                            <ion-label>
+                                <ion-item>
+                                    <span class="" horizontal="start">{{ crawl.attributes.name }}</span>
+                                    <ion-button slot="end" (click)="showCrawlMap(crawl.id)">
+                                        <ion-icon name="eye"></ion-icon>
+                                    </ion-button>
 
-                                <ion-button slot="end" (click)="showCrawl(crawl.id)">
-                                    <ion-icon name="cog"></ion-icon>
-                                </ion-button>
-                            </ion-item>
-                        </ion-label>
-                    </ion-item-sliding>
-                </ion-list>
+                                    <ion-button slot="end" (click)="showCrawl(crawl.id)">
+                                        <ion-icon name="cog"></ion-icon>
+                                    </ion-button>
+                                </ion-item>
+                            </ion-label>
+                        </ion-item-sliding>
+                    </ion-list>
+                </ng-template>
+                <ng-template #noCrawl>
+                    <ion-card>
+                        <ion-card-content>
+                            <p class="ion-text-center">
+                                Vous n'avez aucun barathon de prévu.
+                            </p>
+                            <p class="ion-text-center">
+                                Vous pouvez en créer un en utilisant le bouton en bas à droite.
+                            </p>
+                        </ion-card-content>
+                    </ion-card>
+                </ng-template>
             </ion-col>
         </ion-row>
 

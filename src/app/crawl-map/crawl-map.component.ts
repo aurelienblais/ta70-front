@@ -4,6 +4,7 @@ import * as L from 'leaflet';
 import {CrawlProviderService} from '../_services/crawl-provider.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import 'leaflet-routing-machine';
+import {PoiDetailPage} from '../poi-detail/poi-detail.page';
 
 @Component({
     selector: 'app-crawl-map',
@@ -97,6 +98,9 @@ export class CrawlMapComponent implements OnInit {
             router: L.Routing.mapbox('pk.eyJ1IjoibmFyaXRheWEiLCJhIjoiY2p4ZXI4M3p4MDVxODNvbWQ2YTBidng5eSJ9.yCkdmTyjoOZ1DHl_T0u02Q'),
             draggableWaypoints: false,
             addWaypoints: false,
+            lineOptions: {
+                styles: [{color: 'red', opacity: .8, weight: 3}, {color: 'black', opacity: .5, weight: 3}]
+            },
             createMarker: function() {
                 return null;
             }
@@ -106,12 +110,20 @@ export class CrawlMapComponent implements OnInit {
 
     addMarkerOnMap(poi: any) {
         L.marker([poi.attributes.poi.latitude, poi.attributes.poi.longitude], {icon: this.poiMarker})
-            .on('click', _ => this.currentPoi = poi).addTo(this.map);
+            .on('click', _ => this.openPoi(poi.attributes.poi.id)).addTo(this.map);
     }
 
     centerMap() {
         this.map.flyTo([this.currentPosition.latitude, this.currentPosition.longitude], 15);
         this.map.invalidateSize();
+    }
+
+    async openPoi(id) {
+        const modal = await this.modalCtrl.create({
+            component: PoiDetailPage,
+            componentProps: {poi_id: id}
+        });
+        return await modal.present();
     }
 
     disposeModal() {
